@@ -56,7 +56,7 @@ app.post("/api/assistant", limiter, async (req, res) => {
   try {
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const response = await client.responses.create({
-      model: process.env.OPENAI_MODEL || "gpt-6-astra",
+      model: process.env.OPENAI_MODEL || "gpt-6-luna",
       instructions: [
         "You are Alpha Stream Assistant, a helpful guide to using the Alpha Stream app.",
         "Help users understand app features, playback settings, accessibility, and troubleshooting.",
