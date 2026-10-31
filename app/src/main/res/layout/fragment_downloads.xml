@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="Offline downloads"
+            android:letterSpacing="-0.01"
             android:textColor="@color/textColor"
             android:textSize="23sp"
             android:textStyle="bold" />
@@ -332,7 +333,10 @@
             android:id="@+id/download_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="100dp"
+            android:paddingStart="10dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="110dp"
             android:clipToPadding="false"
             android:descendantFocusability="afterDescendants"
             android:nextFocusUp="@id/download_stream_button_tv"
@@ -347,7 +351,7 @@
             android:foreground="@drawable/outline_drawable"
             android:id="@+id/download_queue_button"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="58dp"
             android:layout_gravity="bottom"
             android:background="?attr/primaryBlackBackground"
             android:orientation="vertical">
