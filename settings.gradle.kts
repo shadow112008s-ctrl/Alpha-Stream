@@ -17,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CloudStream"
+rootProject.name = "Alpha Stream"
 include(":app", ":shared", ":library", ":docs", ":desktopApp")
