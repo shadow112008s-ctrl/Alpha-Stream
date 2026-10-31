@@ -19,9 +19,12 @@ def main():
         print("OpenAI PR review skipped: OPENAI_API_KEY is not configured.")
         return 0
 
-    repo = os.environ["GITHUB_REPOSITORY"]
-    pr_number = os.environ["PR_NUMBER"]
-    github_token = os.environ["GITHUB_TOKEN"]
+    repo = os.environ.get("GITHUB_REPOSITORY", "")
+    pr_number = os.environ.get("PR_NUMBER", "")
+    github_token = os.environ.get("GITHUB_TOKEN", "")
+    if not repo or not pr_number or not github_token:
+        print("OpenAI PR review skipped: run this workflow from a pull request.")
+        return 0
     diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}"
     diff_req = urllib.request.Request(
         diff_url,
