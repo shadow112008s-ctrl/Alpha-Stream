@@ -68,6 +68,11 @@ def main():
         return 0
 
     redacted_diff = redact_sensitive_diff(diff)
+    model = os.environ.get("OPENAI_MODEL", "").strip()
+    if not model:
+        print("OpenAI PR review skipped: OPENAI_MODEL is not configured.")
+        return 0
+
     review_context = {
         "task": "Review this GitHub pull request diff for concrete correctness, reliability, security, privacy, and testability issues.",
         "rules": [
@@ -82,7 +87,7 @@ def main():
     }
     prompt = json.dumps(review_context, ensure_ascii=False)
     payload = {
-        "model": os.environ.get("OPENAI_MODEL", "gpt-6-luna"),
+        "model": model,
         "instructions": "You are a careful senior Android and backend code reviewer. Be concise and evidence-based.",
         "input": prompt,
         "max_output_tokens": 1200,
