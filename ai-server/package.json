@@ -4,10 +4,12 @@
   "private": true,
   "description": "Secure server-side OpenAI Responses API gateway for Alpha Stream.",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test"
+    "test": "NODE_ENV=test node --test"
   },
   "dependencies": {
     "cors": "^2.8.5",
