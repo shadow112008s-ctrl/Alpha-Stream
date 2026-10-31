@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/library_root"
-    android:background="?attr/primaryGrayBackground"
+    android:background="?attr/primaryBlackBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,7 +22,7 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/primaryGrayBackground">
+        android:background="?attr/primaryBlackBackground">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/search_background"
+                android:background="@drawable/alpha_glass_surface"
                 android:visibility="visible"
                 app:layout_scrollFlags="scroll|enterAlways">
 
@@ -194,7 +194,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="bottom"
-        android:background="?attr/primaryGrayBackground"
+        android:background="?attr/primaryBlackBackground"
         android:focusable="true"
         android:paddingHorizontal="5dp"
         app:layout_scrollFlags="noScroll"
