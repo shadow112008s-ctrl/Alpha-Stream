@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00B8F0</color>
+    <color name="colorPrimary">#00D9FF</color>
     <color name="colorPrimarySecond">@color/colorPrimary</color>
+    <color name="colorChromeSilver">#BFC9D6</color>
+    <color name="colorElectricCyan">#00D9FF</color>
+    <color name="colorNeonRed">#FF3155</color>
+    <color name="colorSteelBlue">#26364A</color>
     <color name="colorSearch">#101826</color>
-    <color name="colorOngoing">#FF3048</color>
-    <color name="colorPrimaryDark">#006A99</color>
-    <color name="colorAccent">#00D4FF</color>
-    <color name="primaryGrayBackground">#17202D</color>
+    <color name="colorOngoing">#FF3155</color>
+    <color name="colorPrimaryDark">#087D9B</color>
+    <color name="colorAccent">#00D9FF</color>
+    <color name="primaryGrayBackground">#101724</color>
     <color name="primaryBlackBackground">#080B12</color>
-    <color name="iconGrayBackground">#111827</color>
-    <color name="boxItemBackground">#0D1420</color>
-    <color name="textColor">#F2F7FF</color>
-    <color name="grayTextColor">#A4B0C0</color>
+    <color name="iconGrayBackground">#121B29</color>
+    <color name="boxItemBackground">#0E1622</color>
+    <color name="textColor">#EAF4FF</color>
+    <color name="grayTextColor">#9EADBE</color>
     <color name="grayShimmer">#DCDCDC</color>
     <color name="searchColorTransparent">#1AFFFFFF</color>
     <color name="transparent">#00000000</color>
@@ -24,20 +28,20 @@
     <color name="progressBackgroundColor">#1AFFFFFF</color>
     <color name="dubColorText">#002B3A</color>
     <color name="amoledModeLight">#080B12</color>
-    <color name="dubColorBg">#00B8F0</color>
+    <color name="dubColorBg">#00D9FF</color>
     <color name="subColorText">#5C101B</color>
-    <color name="subColorBg">#FF3048</color>
+    <color name="subColorBg">#FF3155</color>
     <color name="typeColorText">#D8F5FF</color>
     <color name="typeColorBg">#005B85</color>
-    <color name="adultColor">#FF3048</color>
+    <color name="adultColor">#FF3155</color>
     <color name="video_ripple">#80FFFFFF</color>
     <color name="video_button_ripple">#32FFFFFF</color>
     <color name="black_overlay">#66000000</color>
-    <color name="darkBarTransparent">#C0080B12</color>
+    <color name="darkBarTransparent">#D9080B12</color>
     <color name="skipOpTransparent">#4D080B12</color>
     <color name="darkBar">#080B12</color>
     <color name="videoProgress">#66B5B5B5</color>
-    <color name="iconColor">#A4B0C0</color>
+    <color name="iconColor">#BFC9D6</color>
     <!--Light Mode -->
     <color name="lightPrimaryGrayBackground">#f1f1f1</color>
     <color name="lightBitDarkerGrayBackground">#fff</color>
