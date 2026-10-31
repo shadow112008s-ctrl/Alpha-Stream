@@ -13,10 +13,58 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:background="?attr/primaryBlackBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚡"
+            android:textColor="@color/colorElectricCyan"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.12"
+                android:text="ALPHA STREAM"
+                android:textColor="@color/textColor"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.08"
+                android:text="YOUR NEXT WORLD STARTS HERE"
+                android:textColor="@color/grayTextColor"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="34dp"
+            android:layout_height="2dp"
+            android:background="@color/colorElectricCyan" />
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/home_preview_viewpager_text"
         android:layout_width="match_parent"
-        android:layout_height="460dp">
+        android:layout_height="440dp">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_preview_viewpager"
@@ -38,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/alpha_glass_surface"
             android:gravity="center_vertical"
