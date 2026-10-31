@@ -364,7 +364,8 @@
                                 android:layout_marginBottom="5dp"
                                 android:maxLines="2"
                                 android:textColor="?attr/textColor"
-                                android:textSize="20sp"
+                                android:textSize="26sp"
+                                android:letterSpacing="0.01"
                                 android:textStyle="bold"
                                 tools:text="The Perfect Run The Perfect Run" />
 
@@ -430,7 +431,8 @@
                                     android:nextFocusDown="@id/result_bookmark_Button"
                                     android:paddingTop="5dp"
                                     android:textColor="?attr/textColor"
-                                    android:textSize="15sp"
+                                    android:textSize="14sp"
+                                    android:lineSpacingExtra="3dp"
                                     tools:text="Ryan Quicksave Romano is an eccentric adventurer with a strange power: he can create a save-point in time and redo his life whenever he dies. Arriving in New Rome, the glitzy capital of sin of a rebuilding Europe, he finds the city torn between mega-corporations, sponsored heroes, superpowered criminals, and true monsters. It's a time of chaos, where potions can grant the power to rule the world and dangers lurk everywhere. " />
 
                                 <ImageView
