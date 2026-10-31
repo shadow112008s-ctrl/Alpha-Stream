@@ -1,9 +1,10 @@
 name: OpenAI advisory pull request review
 
+# Sending repository diffs to an external model is opt-in. A maintainer must
+# deliberately add the safe-to-review label to a PR after checking its contents.
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-  workflow_dispatch:
+  pull_request_target:
+    types: [labeled]
 
 permissions:
   contents: read
@@ -11,14 +12,20 @@ permissions:
 
 jobs:
   review:
+    if: github.event.label.name == 'safe-to-review'
     runs-on: ubuntu-latest
     steps:
-      - name: Check out review script
+      # Only execute the review script from the trusted base commit. Never
+      # check out or execute code from the pull request head in this workflow.
+      - name: Check out trusted base version
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
       - name: Run read-only OpenAI review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          OPENAI_REVIEW_SEND_DIFF: "true"
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
