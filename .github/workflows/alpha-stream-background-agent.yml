@@ -1,0 +1,106 @@
+name: Alpha Stream Background AI Maintenance Agent
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily maintenance window (02:20 UTC).
+    - cron: "20 2 * * *"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  actions: read
+  id-token: write
+
+concurrency:
+  group: alpha-stream-background-agent
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify Android project and build APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - name: Check out repair branch
+        uses: actions/checkout@v6
+        with:
+          ref: alpha-stream-full-repair
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Grant Gradle wrapper permission
+        run: chmod +x ./gradlew
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Check Kotlin binary compatibility
+        run: ./gradlew :library:checkKotlinAbi
+
+      - name: Run stable debug unit tests
+        run: ./gradlew :app:testStableDebugUnitTest
+
+      - name: Run stable debug Android lint
+        run: ./gradlew :app:lintStableDebug
+
+      - name: Build stable debug APK
+        run: ./gradlew :app:assembleStableDebug
+
+      - name: Upload verified debug APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: alpha-stream-background-debug-apk
+          path: app/build/outputs/apk/stable/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload verification reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: alpha-stream-background-reports
+          path: |
+            app/build/reports/tests/
+            app/build/reports/lint-results-*.html
+            library/build/reports/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  claude-maintenance:
+    name: Optional Claude code maintenance
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Run Claude maintenance when an API key is configured
+        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          base_branch: alpha-stream-full-repair
+          branch_prefix: ai-maintenance/
+          prompt: |
+            You are the maintenance engineer for the Android app Alpha Stream.
+            Inspect the repository and the latest verification results. Find concrete,
+            reproducible bugs or safe maintenance improvements. Make only small,
+            focused source-code, test, or documentation changes that are supported
+            by evidence. Add or update tests where practical.
+
+            Do not edit GitHub workflows, Gradle wrapper files, dependency versions,
+            signing configuration, secrets, credentials, permissions, release or
+            deployment configuration. Do not add unofficial media sources, scrape
+            protected services, bypass access controls, or include copyrighted media.
+            Use only lawful, authorized content integrations.
+
+            Never merge a pull request, publish a release, deploy, or install an APK.
+            If a safe fix is justified, prepare it on a separate ai-maintenance branch
+            based on alpha-stream-full-repair and open a pull request for human review.
+            If no safe fix is justified, report findings without changing files.
+            Clearly state what was tested and what still requires a real Android device.
+          claude_args: |
+            --max-turns 6
