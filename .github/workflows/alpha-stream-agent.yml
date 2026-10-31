@@ -59,4 +59,3 @@ jobs:
             If no safe change is needed, report that no change was made.
           claude_args: |
             --max-turns 8
-            --model claude-sonnet-4-5-20250929
