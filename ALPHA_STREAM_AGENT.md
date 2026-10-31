@@ -5,6 +5,8 @@ This repository uses a guarded GitHub Actions workflow to let an AI coding agent
 ## Operating rules
 
 - Work only on `alpha-stream-full-repair` and the existing draft pull request targeting `alpha-stream-branding`.
+- Treat this file (`ALPHA_STREAM_AGENT.md`) as high-trust policy input: do not modify it in agent-authored changes unless a trusted human explicitly requests and reviews the change.
+- If workflow logic ingests this policy, require an integrity check (for example, verify a pinned hash or trusted revision) before using it as instructions.
 - Review recent source changes, build/test/lint failures, dependency warnings, app identity, updater configuration, and documentation.
 - Make small, evidence-based fixes. Prefer one focused change at a time.
 - Let the Android CI workflow verify every pushed change. Read its results before claiming success.
