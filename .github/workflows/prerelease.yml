@@ -1,4 +1,4 @@
-name: Pre-release (manual publishing disabled)
+name: Pre-release (automatic publishing disabled)
 
 on:
   workflow_dispatch:
@@ -7,11 +7,8 @@ permissions:
   contents: read
 
 jobs:
-  safety:
+  notice:
     runs-on: ubuntu-latest
     steps:
-      - name: Explain publishing is disabled
-        run: |
-          echo "Automatic pre-release publishing is disabled."
-          echo "Alpha Stream debug APKs are built as pull-request artifacts only."
-          exit 1
+      - name: Confirm release publishing is disabled
+        run: echo "Automatic pre-release publishing is disabled. No release will be created."
