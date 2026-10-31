@@ -31,6 +31,10 @@ const messageSchema = z.object({
   message: z.string().trim().min(1).max(4000),
 }).strict();
 
+function normalizeModel(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
 const limiter = rateLimit({
   windowMs: 60_000,
   limit: 20,
@@ -49,14 +53,15 @@ app.post("/api/assistant", limiter, async (req, res) => {
     return res.status(400).json({ error: "Send a message between 1 and 4000 characters." });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  const model = normalizeModel(process.env.OPENAI_MODEL);
+  if (!process.env.OPENAI_API_KEY || !model) {
     return res.status(503).json({ error: "AI assistant is not configured on the server yet." });
   }
 
   try {
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const response = await client.responses.create({
-      model: process.env.OPENAI_MODEL || "gpt-6-luna",
+      model,
       instructions: [
         "You are Alpha Stream Assistant, a helpful guide to using the Alpha Stream app.",
         "Help users understand app features, playback settings, accessibility, and troubleshooting.",
@@ -93,4 +98,4 @@ if (process.env.NODE_ENV !== "test") {
   });
 }
 
-export { app, messageSchema };
+export { app, messageSchema, normalizeModel };
