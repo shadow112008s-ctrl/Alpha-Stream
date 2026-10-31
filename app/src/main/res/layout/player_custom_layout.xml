@@ -27,6 +27,12 @@
             android:paddingEnd="32dp"
             android:paddingBottom="32dp">
 
+            <View
+                android:layout_width="46dp"
+                android:layout_height="3dp"
+                android:layout_marginBottom="14dp"
+                android:background="@color/colorElectricCyan" />
+
             <!-- TITLE / LOGO -->
             <FrameLayout
                 android:layout_width="match_parent"
@@ -47,8 +53,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="@android:color/white"
-                    android:textSize="30sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
+                    android:letterSpacing="0.01"
                     android:maxLines="2"
                     android:ellipsize="end"
                     tools:text="Zootopia 2"/>
