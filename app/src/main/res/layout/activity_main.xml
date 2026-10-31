@@ -39,7 +39,7 @@
             android:layout_height="@dimen/nav_view_height"
             android:layout_width="0dp"
             app:labelVisibilityMode="labeled"
-            android:background="?attr/primaryGrayBackground"
+            android:background="@drawable/alpha_bottom_nav"
 
             app:itemIconTint="@color/item_select_color"
             app:itemTextColor="@color/item_select_color"
