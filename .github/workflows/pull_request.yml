@@ -2,7 +2,7 @@ name: Alpha Stream Android CI
 
 on:
   pull_request:
-    branches: [master, alpha-stream-branding]
+    branches: [master, alpha-stream-branding, alpha-stream-full-repair]
   workflow_dispatch:
 
 permissions:
