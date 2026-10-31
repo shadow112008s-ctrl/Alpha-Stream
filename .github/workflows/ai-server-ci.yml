@@ -24,3 +24,5 @@ jobs:
       - run: npm install --package-lock-only --ignore-scripts
       - run: npm ci
       - run: npm test
+      - name: Test OpenAI review secret redaction
+        run: python3 -m unittest discover -s scripts -p '*_test.py'
