@@ -1,4 +1,5 @@
 name: Alpha Stream Android CI
+# UI refresh validation uses the same tests, lint and APK artifact gates.
 
 on:
   pull_request:
