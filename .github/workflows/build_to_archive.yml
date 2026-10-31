@@ -1,4 +1,4 @@
-name: Archive build (manual only)
+name: Archive build (automatic publishing disabled)
 
 on:
   workflow_dispatch:
@@ -7,11 +7,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  notice:
     runs-on: ubuntu-latest
     steps:
-      - name: Explain manual archive workflow is disabled
-        run: |
-          echo "Automatic archive publishing has been disabled for Alpha Stream."
-          echo "Use the pull-request Android CI workflow to build a debug APK artifact."
-          exit 1
+      - name: Confirm publishing is disabled
+        run: echo "Automatic archive publishing is disabled. Use the pull-request debug APK artifact instead."
