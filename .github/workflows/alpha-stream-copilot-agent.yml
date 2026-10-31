@@ -1,0 +1,72 @@
+name: Alpha Stream GitHub Copilot Agent
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 00:25 Bangladesh time (18:25 UTC)
+    - cron: "25 18 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: alpha-stream-copilot-agent
+  cancel-in-progress: false
+
+jobs:
+  copilot-maintenance:
+    name: Run guarded Copilot maintenance agent
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out the repair branch
+        uses: actions/checkout@v6
+        with:
+          ref: alpha-stream-full-repair
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Check Copilot authentication
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+        run: |
+          if [ -z "$COPILOT_GITHUB_TOKEN" ]; then
+            echo "::error::Missing COPILOT_GITHUB_TOKEN. Add a fine-grained GitHub token with Copilot Requests permission as a repository Actions secret. Never paste the token into chat or commit it."
+            exit 1
+          fi
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Run Alpha Stream coding agent
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          copilot -p "You are the GitHub Copilot coding agent for Alpha Stream. First read ALPHA_STREAM_AGENT.md and .github/copilot-instructions.md and obey both. Repository: shadow112008s-ctrl/Alpha-Stream. Work only on branch alpha-stream-full-repair. Inspect the Android project and recent CI results. Identify the highest-priority reproducible build, test, compatibility, updater, or app bug. Make only a small, evidence-based, reviewable fix. Add or update tests where appropriate. Use only authorized media integrations; do not add piracy, unauthorized scraping, DRM circumvention, or access-control bypasses. Do not edit secrets, repository settings, release/deployment workflows, or unrelated files. Do not merge, publish, release, deploy, or upload an app-store build. Do not claim tests passed unless you ran them and observed success. If no safe fix is justified, make no code changes and explain why. Summarize changed files, rationale, exact tests run, and remaining blockers in copilot-agent-report.md." --allow-tool='shell(git:*)' --allow-tool='shell(./gradlew:*)' --allow-tool=write --no-ask-user
+
+      - name: Commit and push reviewed agent changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "chore: guarded Alpha Stream Copilot maintenance"
+          fi
+          git push origin HEAD:alpha-stream-full-repair
+
+      - name: Publish agent summary
+        if: always()
+        run: |
+          if [ -f copilot-agent-report.md ]; then
+            cat copilot-agent-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Copilot did not produce a report. Check the preceding workflow steps for the blocker." >> "$GITHUB_STEP_SUMMARY"
+          fi
