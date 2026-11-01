@@ -36,7 +36,7 @@ GPL-3.0 covers software under its terms; it does not grant rights to third-party
 ## Android permissions and network security
 - [ ] Map every manifest permission to an implemented feature and policy-compliant purpose.
 - [ ] Review MANAGE_EXTERNAL_STORAGE, QUERY_ALL_PACKAGES, REQUEST_INSTALL_PACKAGES, UPDATE_PACKAGES_WITHOUT_USER_ACTION, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, and legacy storage permissions for necessity and Play eligibility.
-- [ ] Review usesCleartextTraffic="true"; disable cleartext unless a documented, controlled, policy-compliant requirement remains.
+- [x] Set `android:usesCleartextTraffic="false"` in the production manifest. [ ] Verify provider/extension compatibility and confirm no required production endpoint uses HTTP.
 - [ ] Verify exported components, backup/data extraction rules, file-provider paths, deep links, and update flows.
 - [ ] Confirm secrets and personal data are not unintentionally exposed in logs or URLs.
 
@@ -52,7 +52,7 @@ GPL-3.0 covers software under its terms; it does not grant rights to third-party
 - [ ] Test provider search, authorized playback, subtitles, downloads, offline playback, external-player intents, notifications, background work, permissions, updates, and crash/restart behavior.
 - [ ] Test minimum and current supported Android versions.
 - [ ] Review all test/lint reports and resolve high/critical security issues.
-- [ ] Replace legacy CloudStream store metadata with accurate Alpha Stream copy and original assets.
+- [x] Replace English and Bengali store titles/descriptions with Alpha Stream branding and remove the unverified no-ads/no-analytics claim. [ ] Review remaining translated listings and original release assets for consistency.
 - [ ] Authorized publisher completes content rating, app access, ads, target audience, Data safety, privacy policy, and other Play declarations.
 - [ ] Authorized publisher explicitly approves the final listing and release.
 
@@ -61,6 +61,9 @@ GPL-3.0 covers software under its terms; it does not grant rights to third-party
 - Latest release-variant validation run at document creation: https://github.com/shadow112008s-ctrl/Alpha-Stream/actions/runs/41315633958
 - Recheck the latest run before claiming a current APK/AAB artifact exists.
 - CI intentionally does not sign, publish, create releases, or deploy.
+
+## Branding and compatibility
+User-facing app labels and updated English/Bengali store listings use Alpha Stream. Upstream code namespaces, class names and licence attribution remain intact intentionally as implementation-lineage/compatibility identifiers, not public app branding.
 
 ## Decision
 Do not merge or publish while required gates remain unchecked. Keep the PR in draft pending evidence and authorized publisher approval.

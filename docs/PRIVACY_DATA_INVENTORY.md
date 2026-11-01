@@ -25,9 +25,11 @@ Reviewed the Android manifest, app Gradle configuration, version catalog, and se
 
 ## Observed Android manifest declarations
 
-The manifest declares INTERNET, ACCESS_NETWORK_STATE, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, MANAGE_EXTERNAL_STORAGE, MODIFY_AUDIO_SETTINGS, REQUEST_INSTALL_PACKAGES, POST_NOTIFICATIONS, UPDATE_PACKAGES_WITHOUT_USER_ACTION, FOREGROUND_SERVICE, FOREGROUND_SERVICE_DATA_SYNC, USE_BIOMETRIC, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Android TV EPG read/write permissions, and QUERY_ALL_PACKAGES. It also declares `android:usesCleartextTraffic="true"`.
+The manifest declares INTERNET, ACCESS_NETWORK_STATE, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, MANAGE_EXTERNAL_STORAGE, MODIFY_AUDIO_SETTINGS, REQUEST_INSTALL_PACKAGES, POST_NOTIFICATIONS, UPDATE_PACKAGES_WITHOUT_USER_ACTION, FOREGROUND_SERVICE, FOREGROUND_SERVICE_DATA_SYNC, USE_BIOMETRIC, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Android TV EPG read/write permissions, and QUERY_ALL_PACKAGES. The production manifest now explicitly sets `android:usesCleartextTraffic="false"`. Cleartext HTTP endpoints are blocked by Android network policy; providers and extensions must use HTTPS. Runtime traffic verification is still required.
 
-A permission declaration does not prove runtime use. Map every permission to a current user-facing feature, verify actual use on supported Android versions, document the purpose and Play eligibility, and remove permissions not essential to the released product. The cleartext setting needs review; production endpoints should use HTTPS/TLS, with any exception narrowly scoped and justified.
+A permission declaration does not prove runtime use. Current declarations are associated by source comments/features with downloads and storage (READ/WRITE/MANAGE_EXTERNAL_STORAGE), app update installation (REQUEST_INSTALL_PACKAGES and UPDATE_PACKAGES_WITHOUT_USER_ACTION), Android TV watch-next (EPG read/write), external-player and extension discovery (QUERY_ALL_PACKAGES), notifications/background work, audio controls, and biometrics. This is not proof that every permission is necessary or policy-eligible. Before public release, verify actual use on supported Android versions, document user-visible rationale and consent, and remove permissions not required by the final feature set. Broad storage and package-visibility permissions are high-priority review items.
+
+The production manifest now explicitly sets `android:usesCleartextTraffic="false"`. Cleartext HTTP endpoints are blocked by Android network policy; providers and extensions must use HTTPS. Runtime traffic verification remains required.
 
 ## Direct dependency families observed
 
@@ -63,8 +65,12 @@ No advertising or analytics SDK was positively identified in the limited direct-
 
 ## Metadata inconsistency
 
-The existing Fastlane English listing contains a legacy statement that the app has no ads and analytics. This limited review does not substantiate that claim. Do not publish or reuse it until the full dependency, extension and runtime audit confirms it.
+The previous English and Bengali store descriptions contained an unverified claim that the app has no ads and analytics. That claim is removed from the updated Alpha Stream store copy; do not make advertising, analytics, or telemetry claims until a complete dependency, extension, and runtime audit confirms them.
 
 ## Publisher information — not supplied / not inferable
 
 The repository does not establish the publisher's legal entity/name, registered or service address, privacy contact, support contact, jurisdiction, policy effective date, or public HTTPS policy URL. These must be supplied and approved by the authorized publisher. Do not substitute a GitHub username or invent an email/address.
+
+## Branding and compatibility note
+
+User-facing app naming is Alpha Stream. The upstream Kotlin namespace `com.lagradost.cloudstream3`, implementation class names such as `.CloudStreamApp`, and upstream attribution references are intentionally retained for source and package compatibility; renaming these identifiers would be a code migration, not a cosmetic branding change. Public listing and app display labels must use Alpha Stream.

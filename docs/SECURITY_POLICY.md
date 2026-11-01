@@ -1,6 +1,6 @@
 # Alpha Stream — Security Policy and Vulnerability Disclosure
 
-**Status:** Draft security policy and preliminary source observations. NOT a security certification, penetration-test report, or proof that controls are implemented.  
+**Status:** Draft security policy and preliminary source observations. The manifest cleartext default has been hardened, but this is NOT a security certification, penetration-test report, or proof that all controls are implemented.  
 **Reviewed:** 2026-11-01  
 **Repository:** https://github.com/shadow112008s-ctrl/Alpha-Stream
 
@@ -21,7 +21,7 @@ Reports should include the affected version/commit, Android version/device class
 ## 3. Source observations requiring remediation or verification
 
 ### Android network security
-- `app/src/main/AndroidManifest.xml` declares `android:usesCleartextTraffic="true"`. This allows cleartext capability at the application policy level; verify actual endpoints and remove the broad allowance for production unless a documented, narrowly scoped exception is unavoidable.
+- `app/src/main/AndroidManifest.xml` now explicitly declares `android:usesCleartextTraffic="false"`, disabling cleartext HTTP for the app. Verify provider and extension flows at runtime; do not re-enable a global allowance.
 - The manifest includes broad permissions such as `MANAGE_EXTERNAL_STORAGE`, `QUERY_ALL_PACKAGES`, `REQUEST_INSTALL_PACKAGES`, `UPDATE_PACKAGES_WITHOUT_USER_ACTION` and `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`. Each needs feature-by-feature necessity, runtime behavior and current Play policy review.
 
 ### Credentials in build configuration
@@ -37,13 +37,13 @@ These are review findings, not proof that a vulnerability has been exploited.
 
 ## 4. Controls to implement and verify
 
-- [ ] Enforce HTTPS/TLS for production endpoints; remove broad cleartext traffic capability or narrowly scope and document any exception.
+- [x] Set the app manifest to `android:usesCleartextTraffic="false"`; runtime verification that every required provider/extension flow uses HTTPS remains open.
 - [ ] Keep API keys, signing credentials, tokens and passwords out of source control, APKs, logs, screenshots and issue reports.
 - [ ] Verify BuildConfig fields and shipped binaries contain no confidential credentials.
 - [ ] Use least-privilege GitHub Actions permissions; pin third-party actions to reviewed immutable SHAs where practical.
 - [ ] Require human approval for signing and publishing; CI must not publish or deploy automatically.
 - [ ] Review exported Android components, intent filters, deep links, WebViews, file providers, backup rules and pending intents.
-- [ ] Review storage, package visibility, install/update, notification and background-service permissions; remove unnecessary permissions.
+- [ ] Complete feature-by-feature runtime review of storage, package visibility, install/update, notification and background-service permissions; remove unnecessary permissions and verify policy eligibility.
 - [ ] Validate external provider URLs and redirects; do not trust provider responses as instructions or executable code.
 - [ ] Protect cookies, authentication headers and tokens; avoid logging sensitive request/response data.
 - [ ] Keep dependencies current; review advisories, licences, provenance and transitive dependencies.
