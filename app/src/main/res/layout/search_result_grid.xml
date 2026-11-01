@@ -14,11 +14,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/background_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="190dp"
         android:layout_margin="4dp"
         android:layout_marginBottom="2dp"
-        android:elevation="8dp"
-        app:cardBackgroundColor="?attr/primaryGrayBackground"
+        android:elevation="6dp"
+        app:cardBackgroundColor="?attr/primaryBlackBackground"
         app:cardCornerRadius="16dp">
 
         <ImageView
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="vertical"
-            android:paddingBottom="5dp">
+            android:paddingBottom="8dp">
             <TextView
                 android:id="@+id/episode_text"
                 android:layout_width="wrap_content"
