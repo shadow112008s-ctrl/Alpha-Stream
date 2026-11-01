@@ -26,24 +26,32 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
+      - name: Check Copilot authentication
+        id: auth
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          if [ -n "${COPILOT_GITHUB_TOKEN:-}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "Copilot authentication is configured."
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Copilot coding agent skipped: COPILOT_GITHUB_TOKEN is not configured. Add a fine-grained token with Copilot Requests permission under Settings > Secrets and variables > Actions. Never paste it into chat or commit it."
+          fi
+
       - name: Set up Node.js
+        if: steps.auth.outputs.configured == 'true'
         uses: actions/setup-node@v7
         with:
           node-version: "22"
 
-      - name: Check Copilot authentication
-        env:
-          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
-        run: |
-          if [ -z "$COPILOT_GITHUB_TOKEN" ]; then
-            echo "::error::Missing COPILOT_GITHUB_TOKEN. Add a fine-grained GitHub token with Copilot Requests permission as a repository Actions secret. Never paste the token into chat or commit it."
-            exit 1
-          fi
-
       - name: Install GitHub Copilot CLI
+        if: steps.auth.outputs.configured == 'true'
         run: npm install -g @github/copilot
 
       - name: Run Alpha Stream coding agent
+        if: steps.auth.outputs.configured == 'true'
         env:
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
@@ -51,6 +59,7 @@ jobs:
           copilot -p "You are the GitHub Copilot coding agent for Alpha Stream. First read ALPHA_STREAM_AGENT.md and .github/copilot-instructions.md and obey both. Repository: shadow112008s-ctrl/Alpha-Stream. Work only on branch alpha-stream-full-repair. Inspect the Android project and recent CI results. Identify the highest-priority reproducible build, test, compatibility, updater, or app bug. Make only a small, evidence-based, reviewable fix. Add or update tests where appropriate. Use only authorized media integrations; do not add piracy, unauthorized scraping, DRM circumvention, or access-control bypasses. Do not edit secrets, repository settings, release/deployment workflows, or unrelated files. Do not merge, publish, release, deploy, or upload an app-store build. Do not claim tests passed unless you ran them and observed success. If no safe fix is justified, make no code changes and explain why. Summarize changed files, rationale, exact tests run, and remaining blockers in copilot-agent-report.md." --allow-tool='shell(git:*)' --allow-tool='shell(./gradlew:*)' --allow-tool=write --no-ask-user
 
       - name: Commit and push reviewed agent changes
+        if: steps.auth.outputs.configured == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -67,6 +76,8 @@ jobs:
         run: |
           if [ -f copilot-agent-report.md ]; then
             cat copilot-agent-report.md >> "$GITHUB_STEP_SUMMARY"
+          elif [ "${{ steps.auth.outputs.configured }}" = "true" ]; then
+            echo "Copilot did not produce a report. Check the preceding workflow steps." >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "Copilot did not produce a report. Check the preceding workflow steps for the blocker." >> "$GITHUB_STEP_SUMMARY"
+            echo "Copilot agent was not run because COPILOT_GITHUB_TOKEN is missing. Android CI remains independent and can still build/test the app." >> "$GITHUB_STEP_SUMMARY"
           fi
