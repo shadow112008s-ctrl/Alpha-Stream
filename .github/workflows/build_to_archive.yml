@@ -1,12 +1,7 @@
 name: Archive build
 
 on:
-  push:
-    branches: [ master ]
-    paths-ignore:
-      - '*.md'
-      - '*.json'
-      - '**/wcokey.txt'
+  # Signed archive builds write to a separate repository; keep them manual-only.
   workflow_dispatch:
 
 permissions:
@@ -18,6 +13,8 @@ concurrency:
 
 jobs:
   build:
+    # Do not start a signed build unless both external GitHub App credentials exist.
+    if: ${{ secrets.GH_APP_ID != '' && secrets.GH_APP_KEY != '' }}
     runs-on: ubuntu-latest
     steps:
     - name: Generate access token
