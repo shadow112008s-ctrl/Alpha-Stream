@@ -1,0 +1,28 @@
+name: Alpha Stream AI Server CI
+
+on:
+  pull_request:
+    paths:
+      - "ai-server/**"
+      - ".github/workflows/ai-server-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ai-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --package-lock-only --ignore-scripts
+      - run: npm ci
+      - run: npm test
+      - name: Test OpenAI review secret redaction
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
