@@ -14,9 +14,9 @@ concurrency:
 
 jobs:
   verify:
-    name: Tests, lint, compatibility and debug APK
+    name: Tests, lint, compatibility and Android bundles
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
       - name: Check out source
         uses: actions/checkout@v6
@@ -50,6 +50,19 @@ jobs:
         with:
           name: alpha-stream-stable-debug-apk
           path: app/build/outputs/apk/stable/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      # This validates the release variant but is deliberately unsigned.
+      # Signing requires publisher-owned credentials and is not done in CI.
+      - name: Build unsigned stable release Android App Bundle
+        run: ./gradlew :app:bundleStableRelease
+
+      - name: Upload unsigned release AAB for review
+        uses: actions/upload-artifact@v7
+        with:
+          name: alpha-stream-unsigned-stable-release-aab
+          path: app/build/outputs/bundle/stableRelease/*.aab
           if-no-files-found: error
           retention-days: 14
 
