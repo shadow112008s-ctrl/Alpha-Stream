@@ -1,1 +1,1 @@
-Stream and download movies, TV series and anime.
+A customizable media player with extensions, bookmarks and subtitles.

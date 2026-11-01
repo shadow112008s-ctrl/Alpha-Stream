@@ -85,8 +85,7 @@ android {
     }
 
     signingConfigs {
-        // We just use SIGNING_KEY_ALIAS here since it won't change
-        // so won't kill the configuration cache.
+        // Existing prerelease signing configuration (kept unchanged).
         if (System.getenv("SIGNING_KEY_ALIAS") != null) {
             create("prerelease") {
                 val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
@@ -98,12 +97,22 @@ android {
                 keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
             }
         }
+
+        // Stable Play upload signing is configured only in the protected release workflow.
+        if (System.getenv("ANDROID_KEYSTORE_FILE") != null) {
+            create("stableRelease") {
+                storeFile = file(System.getenv("ANDROID_KEYSTORE_FILE"))
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
     }
 
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.lagradost.cloudstream3"
+        applicationId = "com.shadow112008s.alphastream"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
@@ -147,6 +156,9 @@ android {
             isDebuggable = false
             isMinifyEnabled = false
             isShrinkResources = false
+            if (signingConfigs.names.contains("stableRelease")) {
+                signingConfig = signingConfigs.getByName("stableRelease")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
