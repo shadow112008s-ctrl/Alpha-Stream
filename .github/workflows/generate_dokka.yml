@@ -1,10 +1,7 @@
 name: Dokka
 
 on:
-  push:
-    branches: [ master ]
-    paths-ignore:
-      - '*.md'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,6 +12,8 @@ concurrency:
 
 jobs:
   build:
+    # Skip cleanly until the external documentation repository credentials exist.
+    if: ${{ secrets.GH_APP_ID != '' && secrets.GH_APP_KEY != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Generate access token
