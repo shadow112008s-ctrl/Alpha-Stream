@@ -9,7 +9,7 @@
 
     <FrameLayout
         android:id="@+id/player_metadata_scrim"
-        android:layout_width="640dp"
+        android:layout_width="560dp"
         android:layout_height="match_parent"
         android:layout_marginTop="-10dp"
         android:background="@drawable/bg_player_metadata_scrim_netflix"
@@ -23,14 +23,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center_vertical"
-            android:paddingStart="64dp"
-            android:paddingEnd="32dp"
-            android:paddingBottom="32dp">
+            android:paddingStart="48dp"
+            android:paddingEnd="36dp"
+            android:paddingBottom="28dp">
+
+            <View
+                android:layout_width="46dp"
+                android:layout_height="3dp"
+                android:layout_marginBottom="14dp"
+                android:background="@color/colorElectricCyan" />
 
             <!-- TITLE / LOGO -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="88dp">
+                android:layout_height="96dp">
 
                 <ImageView
                     android:id="@+id/player_movie_logo"
@@ -47,8 +53,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="@android:color/white"
-                    android:textSize="30sp"
+                    android:textSize="34sp"
                     android:textStyle="bold"
+                    android:letterSpacing="0.01"
                     android:maxLines="2"
                     android:ellipsize="end"
                     tools:text="Zootopia 2"/>
@@ -73,7 +80,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="#E6FFFFFF"
                 android:textSize="16sp"
-                android:lineSpacingExtra="8dp"
+                android:lineSpacingExtra="6dp"
                 android:maxLines="5"
                 tools:text="Brave rabbit cop Judy Hopps and her friend, the fox Nick Wilde, team up again to crack a new case."/>
 
