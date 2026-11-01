@@ -85,8 +85,7 @@ android {
     }
 
     signingConfigs {
-        // We just use SIGNING_KEY_ALIAS here since it won't change
-        // so won't kill the configuration cache.
+        // Existing prerelease signing configuration (kept unchanged).
         if (System.getenv("SIGNING_KEY_ALIAS") != null) {
             create("prerelease") {
                 val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
@@ -96,6 +95,16 @@ android {
                 storePassword = System.getenv("SIGNING_STORE_PASSWORD")
                 keyAlias = System.getenv("SIGNING_KEY_ALIAS")
                 keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+            }
+        }
+
+        // Stable Play upload signing is configured only in the protected release workflow.
+        if (System.getenv("ANDROID_KEYSTORE_FILE") != null) {
+            create("stableRelease") {
+                storeFile = file(System.getenv("ANDROID_KEYSTORE_FILE"))
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
             }
         }
     }
@@ -147,6 +156,9 @@ android {
             isDebuggable = false
             isMinifyEnabled = false
             isShrinkResources = false
+            if (signingConfigs.names.contains("stableRelease")) {
+                signingConfig = signingConfigs.getByName("stableRelease")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
