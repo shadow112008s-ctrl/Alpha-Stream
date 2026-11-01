@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:letterSpacing="0.08"
-            android:text="DISCOVER"
+            android:text="SEARCH"
             android:textColor="@color/colorElectricCyan"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Find your next favourite"
+            android:text="Search for a content"
             android:letterSpacing="-0.01"
             android:textColor="@color/textColor"
             android:textSize="23sp"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Movies  •  Series  •  Anime"
+            android:text="Browse movies, series and anime"
             android:textColor="@color/grayTextColor"
             android:textSize="12sp" />
     </LinearLayout>
