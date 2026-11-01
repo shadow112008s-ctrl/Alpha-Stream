@@ -13,7 +13,7 @@ concurrency:
 jobs:
   build:
     # Skip cleanly until the external documentation repository credentials exist.
-    if: \${{ secrets.GH_APP_ID != '' && secrets.GH_APP_KEY != '' }}
+    if: ${{ secrets.GH_APP_ID != '' && secrets.GH_APP_KEY != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Generate access token
