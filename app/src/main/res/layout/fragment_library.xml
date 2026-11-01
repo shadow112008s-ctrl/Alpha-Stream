@@ -18,7 +18,9 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
+
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/primaryBlackBackground">
@@ -51,13 +53,7 @@
                 android:textSize="23sp"
                 android:textStyle="bold" />
         </LinearLayout>
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/primaryBlackBackground">
 
         <LinearLayout
             android:layout_width="match_parent"
