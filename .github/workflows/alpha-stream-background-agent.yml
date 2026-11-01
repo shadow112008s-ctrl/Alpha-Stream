@@ -77,8 +77,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      - name: Check whether Claude API credentials are configured
+        id: claude-auth
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Claude maintenance skipped: ANTHROPIC_API_KEY is not configured. The free Claude app does not provide an API key."
+          fi
+
       - name: Run Claude maintenance when an API key is configured
-        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        if: steps.claude-auth.outputs.configured == 'true'
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
