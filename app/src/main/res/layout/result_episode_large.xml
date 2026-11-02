@@ -12,7 +12,7 @@
     android:nextFocusRight="@id/download_button"
     app:cardBackgroundColor="?attr/boxItemBackground"
 
-    app:cardCornerRadius="@dimen/rounded_image_radius">
+    app:cardCornerRadius="16dp">
 
     <LinearLayout
         android:id="@+id/episode_holder"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="12dp">
 
         <LinearLayout
             android:id="@+id/episode_lin_holder"
