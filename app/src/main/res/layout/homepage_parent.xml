@@ -29,7 +29,7 @@
         android:textColor="?attr/textColor"
         tools:text="@string/continue_watching"
         app:drawableRightCompat="@drawable/ic_baseline_arrow_forward_24"
-        app:drawableTint="?attr/white"
+        app:drawableTint="@color/colorElectricCyan"
         android:background="?android:attr/selectableItemBackground"
         android:contentDescription="@string/home_more_info"/>
 
