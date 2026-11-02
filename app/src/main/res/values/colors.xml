@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#E5E7EB</color>
     <color name="colorPrimarySecond">@color/colorPrimary</color>
-    <color name="colorChromeSilver">#BFC9D6</color>
+    <color name="colorChromeSilver">#C5C5C5</color>
     <color name="colorElectricCyan">#DDE1E6</color>
     <color name="colorNeonRed">#9A9DA3</color>
     <color name="colorSteelBlue">#292B30</color>
@@ -18,7 +18,7 @@
     <color name="boxItemBackground">#0D0E10</color>
     <color name="textColor">#F5F5F5</color>
     <color name="grayTextColor">#A5A5A5</color>
-    <color name="grayShimmer">#26384D</color>
+    <color name="grayShimmer">#303030</color>
     <color name="searchColorTransparent">#24FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="white">#FFF</color>
@@ -29,7 +29,7 @@
     <color name="blackText">#000</color>
     <color name="progressBackgroundColor">#30FFFFFF</color>
     <color name="dubColorText">#111111</color>
-    <color name="amoledModeLight">#080B12</color>
+    <color name="amoledModeLight">#000000</color>
     <color name="dubColorBg">#BFC3C9</color>
     <color name="subColorText">#111111</color>
     <color name="subColorBg">#888888</color>
@@ -39,9 +39,9 @@
     <color name="video_ripple">#80FFFFFF</color>
     <color name="video_button_ripple">#32FFFFFF</color>
     <color name="black_overlay">#66000000</color>
-    <color name="darkBarTransparent">#D9080B12</color>
-    <color name="skipOpTransparent">#4D080B12</color>
-    <color name="darkBar">#080B12</color>
+    <color name="darkBarTransparent">#D9000000</color>
+    <color name="skipOpTransparent">#4D000000</color>
+    <color name="darkBar">#000000</color>
     <color name="videoProgress">#66B5B5B5</color>
     <color name="iconColor">#D0D0D0</color>
     <!--Light Mode -->
