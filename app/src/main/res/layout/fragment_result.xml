@@ -269,7 +269,7 @@
                 <FrameLayout
                     android:id="@+id/result_top_holder"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="290dp">
 
                     <FrameLayout
                         android:id="@+id/result_smallscreen_holder"
@@ -295,7 +295,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="110dp"
                             android:layout_gravity="bottom"
                             android:background="@drawable/background_shadow" />
 
@@ -328,8 +328,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="20dp"
                         android:orientation="horizontal"
                         android:visibility="visible">
 
@@ -344,7 +344,7 @@
                             <ImageView
                                 android:id="@+id/result_poster"
                                 android:layout_width="100dp"
-                                android:layout_height="140dp"
+                                android:layout_height="154dp"
                                 android:layout_gravity="bottom"
                                 android:contentDescription="@string/result_poster_img_des"
                                 android:foreground="@drawable/outline_drawable"
@@ -364,7 +364,8 @@
                                 android:layout_marginBottom="5dp"
                                 android:maxLines="2"
                                 android:textColor="?attr/textColor"
-                                android:textSize="20sp"
+                                android:textSize="28sp"
+                                android:letterSpacing="-0.01"
                                 android:textStyle="bold"
                                 tools:text="The Perfect Run The Perfect Run" />
 
@@ -430,7 +431,8 @@
                                     android:nextFocusDown="@id/result_bookmark_Button"
                                     android:paddingTop="5dp"
                                     android:textColor="?attr/textColor"
-                                    android:textSize="15sp"
+                                    android:textSize="14sp"
+                                    android:lineSpacingExtra="5dp"
                                     tools:text="Ryan Quicksave Romano is an eccentric adventurer with a strange power: he can create a save-point in time and redo his life whenever he dies. Arriving in New Rome, the glitzy capital of sin of a rebuilding Europe, he finds the city torn between mega-corporations, sponsored heroes, superpowered criminals, and true monsters. It's a time of chaos, where potions can grant the power to rule the world and dangers lurk everywhere. " />
 
                                 <ImageView
@@ -533,8 +535,9 @@
                         android:layout_marginBottom="10dp"
                         android:text="@string/result_tags"
                         android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:textStyle="normal"
+                        android:textSize="19sp"
+                        android:letterSpacing="0.01"
+                        android:textStyle="bold"
                         android:visibility="gone" />
 
                     <com.google.android.material.chip.ChipGroup

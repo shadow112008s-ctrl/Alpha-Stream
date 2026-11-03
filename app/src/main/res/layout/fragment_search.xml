@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/navbar_height"
-    android:background="?attr/primaryGrayBackground"
+    android:background="?attr/primaryBlackBackground"
     tools:context=".ui.search.SearchFragment">
 
     <LinearLayout
@@ -18,8 +18,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="8dp"
+        android:background="?attr/primaryBlackBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.08"
+            android:text="SEARCH"
+            android:textColor="@color/colorElectricCyan"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Search for a content"
+            android:letterSpacing="-0.01"
+            android:textColor="@color/textColor"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Browse movies, series and anime"
+            android:textColor="@color/grayTextColor"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="10dp"
-        android:background="?attr/primaryGrayBackground">
+        android:background="?attr/primaryBlackBackground">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,8 +67,8 @@
 
             <ImageView
                 android:id="@+id/voice_search"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginStart="10dp"
                 android:background="?selectableItemBackgroundBorderless"
@@ -40,9 +78,12 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/search_background"
+                android:layout_height="52dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/alpha_glass_surface"
                 android:visibility="visible">
 
                 <FrameLayout
@@ -129,8 +170,9 @@
         android:nextFocusLeft="@id/nav_rail_view"
         android:orientation="vertical"
         android:paddingStart="8dp"
-        android:paddingTop="5dp"
+        android:paddingTop="10dp"
         android:paddingEnd="8dp"
+        android:paddingBottom="90dp"
         android:visibility="gone"
         app:spanCount="3"
         tools:listitem="@layout/search_result_grid" />
@@ -166,7 +208,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:background="?attr/primaryGrayBackground"
+        android:background="?attr/primaryBlackBackground"
         android:elevation="8dp"
         android:visibility="gone"
         tools:listitem="@layout/search_suggestion_item" />
